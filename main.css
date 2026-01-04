@@ -1,0 +1,69 @@
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f6f8fa;
+  --card:#ffffff;
+  --accent:#ff6464;
+  --muted:#6b7280;
+  --text:#111827;
+  --glass: rgba(255,255,255,0.6);
+}
+html,body{height:100%}
+body{
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg,#eef2f6 0%,#f8fafc 100%);
+  color:var(--text);
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:36px 16px;
+}
+.site-header{
+  width:100%;
+  max-width:760px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+.site-title{font-size:20px;font-weight:700}
+.site-sub{font-size:13px;color:var(--muted)}
+.icon-btn{
+  background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px;border-radius:10px;cursor:pointer;color:var(--muted)
+}
+.continer{
+  width:100%;
+  max-width:760px;
+  background:transparent;
+  display:flex;flex-direction:column;align-items:center;
+}
+.enter{
+  width:100%;
+  display:flex;gap:12px;align-items:center;margin-bottom:14px;
+}
+.input-text{
+  flex:1;
+  padding:12px 14px;border-radius:12px;border:1px solid rgba(16,24,40,0.06);
+  background:var(--glass);backdrop-filter:blur(4px);
+  font-size:15px;color:var(--text);outline:none
+}
+.input-text::placeholder{color:var(--muted)}
+.addBtn{
+  display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;border:none;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;box-shadow:0 6px 18px rgba(255,100,100,0.12)
+}
+.box{
+  width:100%;display:flex;flex-direction:column;gap:12px;
+}
+.item{
+  background:var(--card);border-radius:12px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 6px 18px rgba(12,15,20,0.04);
+}
+.tittle{font-size:15px;color:var(--text)}
+.removeBtn{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:8px;border-radius:10px;color:var(--muted);cursor:pointer}
+.removeBtn i{color:var(--accent)}
+/* small screens */
+@media (max-width:520px){
+  .site-header{max-width:420px}
+  .continer{max-width:420px}
+  .addBtn{padding:9px 12px}
+}
+/* utility */
+.icon{margin-right:8px}
