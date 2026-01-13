@@ -67,3 +67,10 @@ body{
 }
 /* utility */
 .icon{margin-right:8px}
+
+.projectTitle {
+  margin-bottom: 20px;
+}
+.projectTitle h1 {
+    color: #111827;
+}
