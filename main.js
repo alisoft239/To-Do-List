@@ -42,22 +42,45 @@ function creatItem (text, remove) {
     // create box to content the tittle and button remove
     let item = document.createElement("div")
     item.className = "item"
+
+    let content = document.createElement("div")
+    content.className = "content"
+
     // create span For tittle
     let tittle = document.createElement("span")
     tittle.className = "tittle"
     tittle.textContent = text
-    item.appendChild(tittle)
+    content.appendChild(tittle)
+    
+
+    // create div to continer the buttons
+    let butotnsBox = document.createElement("div")
+    butotnsBox.className = "butotnsBox"
+
+    // create edit button to remove tittle
+    let editBtn = document.createElement("button")
+    editBtn.className = "editBtn"
+    editBtn.textContent = "Edit"
+    butotnsBox.appendChild(editBtn)
+    
+
     // create remove button to remove tittle
     let removeBtn = document.createElement("button")
     removeBtn.className = "removeBtn"
     removeBtn.textContent = "Delate"
-    item.appendChild(removeBtn)
+    butotnsBox.appendChild(removeBtn)
+    
     // Add item to box content
+    content.appendChild(butotnsBox)
+    item.appendChild(content)
     box.appendChild(item)
     // Remove item from box
     removeBtn.addEventListener("click", () => {
         item.remove()
         deleteTodo(remove)
+    })
+    editBtn.addEventListener("click", () => {
+      createEditItem(item, text, tittle)
     })
 }
 
@@ -78,3 +101,40 @@ function addOldItem () {
         creatItem(todolist[حمص].tittle, حمص)
     }
 }
+
+function createEditItem (item, text, tittle) {
+  let boxEdit = document.createElement("div")
+  boxEdit.className = "boxEdit"
+// input
+  let input = document.createElement("Input")
+  input.setAttribute("type","text")
+  input.setAttribute("id","inputId")
+  input.className = "inputEdit"
+  input.value = text
+  boxEdit.appendChild(input)
+// saveButten
+  let saveButton = document.createElement("button")
+  saveButton.className = "saveButton"
+  saveButton.textContent = "save"
+// cancelButten
+  let cancelButton = document.createElement("button")
+  cancelButton.className = "cancelButton"
+  cancelButton.textContent = "cancel"
+
+  let editbuttons = document.createElement("div")
+  editbuttons.className = "editbuttons"
+  editbuttons.appendChild(saveButton)
+  editbuttons.appendChild(cancelButton)
+  boxEdit.appendChild(editbuttons)
+  item.appendChild(boxEdit)
+
+cancelButton.addEventListener("click", () => {
+  boxEdit.remove()
+})
+saveButton.addEventListener("click", () => {
+tittle.textContent = input.value
+boxEdit.remove()
+})
+
+}
+
