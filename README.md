@@ -34,6 +34,3 @@ Contributions are welcome! Please submit a pull request or open an issue for any
 
 This project is licensed under the MIT License.
 
-## Live Demo
-
-You can view the live application at [To-Do List App](https://todolist-3liaymn.netlify.app/).
