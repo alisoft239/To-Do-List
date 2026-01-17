@@ -1,4 +1,4 @@
-# To-Do-List
+cvc# To-Do-List
 
 To Do List App
 
@@ -8,9 +8,6 @@ This To-Do List application allows users to manage their tasks efficiently. User
 
 ## Features
 
-- Add new tasks
-- Edit existing tasks
-- Delete tasks
 - Mark tasks as complete
 
 ## Technologies Used
