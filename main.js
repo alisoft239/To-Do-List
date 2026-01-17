@@ -1,7 +1,7 @@
 /*
 = To Do List Add
 = By: 3liaymn
-= v 1.0
+= v 1.1
 */
 
 let inputTittle = document.querySelector("#tittle")
@@ -11,32 +11,6 @@ let box = document.querySelector(".box")
 addOldItem()
 addBtn.addEventListener("click", addTodo)
 
-
-function addTodo() {
-    const tittle = inputTittle.value.trim();
-    if (tittle === "") return;
-
-  // 1) هات الداتا القديمة أو Object فاضي
-    let todolist = JSON.parse(localStorage.getItem("todolist")) || {};
-
-  // 2) اعمل ID جديد
-  let id = Date.now(); // مضمون يكون unique
-
-  // 3) أضف المهمة
-    todolist[id] = {
-    tittle: tittle,
-    };
-
-  // 4) خزّن تاني
-    localStorage.setItem("todolist", JSON.stringify(todolist));
-// 5) جلب بعد التخزين
-    let savedTodos = JSON.parse(localStorage.getItem("todolist"));
-// 6) ارسال البيانات للانشاء
-    creatItem(savedTodos[id].tittle, id )
-
-  // 5) فضّي الانبوت
-    inputTittle.value = "";
-}
 
 function creatItem (text, id) {
     // create box to content the tittle and button remove
@@ -83,38 +57,37 @@ function creatItem (text, id) {
       createEditItem(item, tittle.textContent, tittle, id)
     })
 }
+function addTodo() {
+    const tittle = inputTittle.value.trim();
+    if (tittle === "") return;
 
-function deleteTodo(id) {
-  // 1) هات الداتا
-  let todolist = JSON.parse(localStorage.getItem("todolist")) || {};
+  // 1) هات الداتا القديمة أو Object فاضي
+    let todolist = JSON.parse(localStorage.getItem("todolist")) || {};
 
-  // 2) امسح العنصر
-  delete todolist[id];
+  // 2) اعمل ID جديد
+  let id = Date.now(); // مضمون يكون unique
 
-  // 3) خزّن التعديل
-  localStorage.setItem("todolist", JSON.stringify(todolist));
+  // 3) أضف المهمة
+    todolist[id] = {
+    tittle: tittle,
+    };
+
+  // 4) خزّن تاني
+    localStorage.setItem("todolist", JSON.stringify(todolist));
+// 5) جلب بعد التخزين
+    let savedTodos = JSON.parse(localStorage.getItem("todolist"));
+// 6) ارسال البيانات للانشاء
+    creatItem(savedTodos[id].tittle, id )
+
+  // 5) فضّي الانبوت
+    inputTittle.value = "";
 }
-
-function editTodo(id,newtittle) {
-  // 1) هات الداتا
-  let todolist = JSON.parse(localStorage.getItem("todolist")) || {};
-
-  // 2) امسح العنصر
-  todolist[id] = {
-    tittle: newtittle,
-  };
-
-  // 3) خزّن التعديل
-  localStorage.setItem("todolist", JSON.stringify(todolist));
-}
-
 function addOldItem () {
     let todolist = JSON.parse(localStorage.getItem("todolist"))
     for (let حمص in todolist) {
         creatItem(todolist[حمص].tittle, حمص)
     }
 }
-
 function createEditItem (item, text, tittle, id) {
   let boxEdit = document.createElement("div")
   boxEdit.className = "boxEdit"
@@ -151,4 +124,25 @@ boxEdit.remove()
 })
 
 }
+function deleteTodo(id) {
+  // 1) هات الداتا
+  let todolist = JSON.parse(localStorage.getItem("todolist")) || {};
 
+  // 2) امسح العنصر
+  delete todolist[id];
+
+  // 3) خزّن التعديل
+  localStorage.setItem("todolist", JSON.stringify(todolist));
+}
+function editTodo(id,newtittle) {
+  // 1) هات الداتا
+  let todolist = JSON.parse(localStorage.getItem("todolist")) || {};
+
+  // 2) امسح العنصر
+  todolist[id] = {
+    tittle: newtittle,
+  };
+
+  // 3) خزّن التعديل
+  localStorage.setItem("todolist", JSON.stringify(todolist));
+}
