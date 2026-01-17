@@ -1,7 +1,7 @@
 /*
 = To Do List Add
 = By: 3liaymn
-= v 1.3
+= v 1.4
 */
 
 let inputTittle = document.querySelector("#tittle")
@@ -166,9 +166,21 @@ function chickItem() {
   if(localStorage.getItem("todolist") !== null)
   {
     let todolist = JSON.parse(localStorage.getItem("todolist"))
-    if(Object.keys(todolist).length === 0)
+    let complet = JSON.parse(localStorage.getItem("complet"))
+    if(Object.keys(todolist).length === 0 )
     {
       completBox.style.display = "none"
+    }else{
+      completBox.style.display = "flex"
+    }
+  }
+
+  if(localStorage.getItem("complet") !== null)
+  {
+    let complet = JSON.parse(localStorage.getItem("complet"))
+    if(!Object.keys(complet).length === 0 )
+    {
+      completBox.style.display = "flex"
     }else{
       completBox.style.display = "flex"
     }
