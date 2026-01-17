@@ -1,14 +1,22 @@
 /*
 = To Do List Add
 = By: 3liaymn
-= v 1.1
+= v 1.3
 */
 
 let inputTittle = document.querySelector("#tittle")
 let addBtn = document.querySelector(".addBtn")
 let box = document.querySelector(".box")
+let completBox = document.querySelector(".complet")
+let yet = document.querySelector(".impty")
 
+
+// localStorage.clear()
+chickItem()
 addOldItem()
+addOldItemcomplet()
+
+// completBox.style.display = "flex"
 addBtn.addEventListener("click", addTodo)
 
 
@@ -56,6 +64,12 @@ function creatItem (text, id) {
     editBtn.addEventListener("click", () => {
       createEditItem(item, tittle.textContent, tittle, id)
     })
+    tittle.addEventListener("click", () => {
+      item.remove()
+      deleteTodo(id)
+      addComplet(text,id)
+    })
+    chickItem()
 }
 function addTodo() {
     const tittle = inputTittle.value.trim();
@@ -133,6 +147,8 @@ function deleteTodo(id) {
 
   // 3) خزّن التعديل
   localStorage.setItem("todolist", JSON.stringify(todolist));
+
+  chickItem()
 }
 function editTodo(id,newtittle) {
   // 1) هات الداتا
@@ -146,3 +162,82 @@ function editTodo(id,newtittle) {
   // 3) خزّن التعديل
   localStorage.setItem("todolist", JSON.stringify(todolist));
 }
+function chickItem() {
+  if(localStorage.getItem("todolist") !== null)
+  {
+    let todolist = JSON.parse(localStorage.getItem("todolist"))
+    if(Object.keys(todolist).length === 0)
+    {
+      completBox.style.display = "none"
+    }else{
+      completBox.style.display = "flex"
+    }
+  }
+}
+function addComplet(text,id){
+console.log(text + id)
+let complet = JSON.parse(localStorage.getItem("complet")) || {}
+
+complet[id] = {
+  tittle: text,
+}
+
+localStorage.setItem("complet", JSON.stringify(complet))
+
+    let savedTodos = JSON.parse(localStorage.getItem("complet"));
+// 6) ارسال البيانات للانشاء
+    createCompletItems(savedTodos[id].tittle, id )
+
+}
+function createCompletItems(text,id){
+
+  yet.style.display = "none"
+  let item = document.createElement("div")
+  item.className = "completItem"
+
+  let span = document.createElement("span")
+  span.className = "completText"
+  span.textContent = text
+  item.appendChild(span)
+
+  let btn = document.createElement("button")
+  btn.textContent = "Delete"
+  btn.className = "completBtnRem"
+  item.appendChild(btn)
+  completBox.appendChild(item)
+
+  btn.addEventListener("click" , () => {
+    item.remove()
+    deleteCompletItem(id)
+  })
+
+  }
+
+function addOldItemcomplet() {
+    let complet = JSON.parse(localStorage.getItem("complet"))
+    if(Object.keys(complet).length === 0)
+    {
+      yet.style.display = "inline-block"
+    }
+    for (let حمص in complet) {
+        createCompletItems(complet[حمص].tittle, حمص)
+    }
+}
+function deleteCompletItem(id) {
+  // 1) هات الداتا
+  let complet = JSON.parse(localStorage.getItem("complet")) || {};
+
+  // 2) امسح العنصر
+  delete complet[id];
+
+  // 3) خزّن التعديل
+  localStorage.setItem("complet", JSON.stringify(complet));
+  
+  let complet2 = JSON.parse(localStorage.getItem("complet"))
+
+    if(Object.keys(complet2).length === 0)
+    {
+      yet.style.display = "inline-block"
+    }
+}
+
