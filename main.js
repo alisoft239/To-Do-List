@@ -38,7 +38,7 @@ function addTodo() {
     inputTittle.value = "";
 }
 
-function creatItem (text, remove) {
+function creatItem (text, id) {
     // create box to content the tittle and button remove
     let item = document.createElement("div")
     item.className = "item"
@@ -77,10 +77,10 @@ function creatItem (text, remove) {
     // Remove item from box
     removeBtn.addEventListener("click", () => {
         item.remove()
-        deleteTodo(remove)
+        deleteTodo(id)
     })
     editBtn.addEventListener("click", () => {
-      createEditItem(item, text, tittle)
+      createEditItem(item, tittle.textContent, tittle, id)
     })
 }
 
@@ -95,6 +95,19 @@ function deleteTodo(id) {
   localStorage.setItem("todolist", JSON.stringify(todolist));
 }
 
+function editTodo(id,newtittle) {
+  // 1) هات الداتا
+  let todolist = JSON.parse(localStorage.getItem("todolist")) || {};
+
+  // 2) امسح العنصر
+  todolist[id] = {
+    tittle: newtittle,
+  };
+
+  // 3) خزّن التعديل
+  localStorage.setItem("todolist", JSON.stringify(todolist));
+}
+
 function addOldItem () {
     let todolist = JSON.parse(localStorage.getItem("todolist"))
     for (let حمص in todolist) {
@@ -102,7 +115,7 @@ function addOldItem () {
     }
 }
 
-function createEditItem (item, text, tittle) {
+function createEditItem (item, text, tittle, id) {
   let boxEdit = document.createElement("div")
   boxEdit.className = "boxEdit"
 // input
@@ -133,6 +146,7 @@ cancelButton.addEventListener("click", () => {
 })
 saveButton.addEventListener("click", () => {
 tittle.textContent = input.value
+editTodo(id, input.value)
 boxEdit.remove()
 })
 
