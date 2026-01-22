@@ -1,7 +1,7 @@
 /*
 = To Do List Add
 = By: 3liaymn
-= v 2.0
+= v 2.1
 */
 
 let inputTittle = document.querySelector("#tittle")
@@ -10,6 +10,17 @@ let box = document.querySelector(".box")
 let completBox = document.querySelector(".complet")
 let yet = document.querySelector(".impty")
 
+// console.log(localStorage.getItem("todolist") !== null)
+// if(localStorage.getItem("todolist") !== null)
+//   {
+//     let todolist = JSON.parse(localStorage.getItem("todolist"))
+//     if(Object.keys(todolist).length === 0 )
+//     {
+//       completBox.style.display = "none"
+//     }else{
+//       completBox.style.display = "flex"
+//     }
+//   }
 
 // localStorage.clear()
 chickItem()
@@ -17,7 +28,7 @@ addOldItem()
 addOldItemcomplet()
 
 // completBox.style.display = "flex"
-addBtn.addEventListener("click", addTodo)
+addBtn.addEventListener("click",() => {addTodo(); chickItem()})
 
 
 function creatItem (text, id) {
@@ -60,6 +71,7 @@ function creatItem (text, id) {
     removeBtn.addEventListener("click", () => {
         item.remove()
         deleteTodo(id)
+        chickItem() 
     })
     editBtn.addEventListener("click", () => {
       createEditItem(item, tittle.textContent, tittle, id)
@@ -69,7 +81,7 @@ function creatItem (text, id) {
       deleteTodo(id)
       addComplet(text,id)
     })
-    chickItem()
+    
 }
 function addTodo() {
     const tittle = inputTittle.value.trim();
@@ -148,7 +160,7 @@ function deleteTodo(id) {
   // 3) خزّن التعديل
   localStorage.setItem("todolist", JSON.stringify(todolist));
 
-  chickItem()
+
 }
 function editTodo(id,newtittle) {
   // 1) هات الداتا
@@ -163,21 +175,25 @@ function editTodo(id,newtittle) {
   localStorage.setItem("todolist", JSON.stringify(todolist));
 }
 function chickItem() {
-  if(localStorage.getItem("todolist") !== null)
+
+
+  if(localStorage.getItem("complet") !== null)
   {
-    let todolist = JSON.parse(localStorage.getItem("todolist"))
-    if(Object.keys(todolist).length === 0 )
+    let complet = JSON.parse(localStorage.getItem("complet"))
+    if(Object.keys(complet).length === 0 )
     {
       completBox.style.display = "none"
     }else{
       completBox.style.display = "flex"
     }
+  }else {
+    return  
   }
 
-  if(localStorage.getItem("complet") !== null)
+    if(localStorage.getItem("todolist") !== null)
   {
-    let complet = JSON.parse(localStorage.getItem("complet"))
-    if(!Object.keys(complet).length === 0 )
+    let todolist = JSON.parse(localStorage.getItem("todolist"))
+    if(Object.keys(todolist).length === 0 )
     {
       completBox.style.display = "none"
     }else{
@@ -223,7 +239,6 @@ function createCompletItems(text,id){
   })
 
   }
-
 function addOldItemcomplet() {
     let complet = JSON.parse(localStorage.getItem("complet")) || {}
 
