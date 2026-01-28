@@ -154,7 +154,6 @@ function editTodo(id,newtittle) {
   // 1) هات الداتا
   let todolist = JSON.parse(localStorage.getItem("todolist")) || {};
 
-  // 2) امسح العنصر
   todolist[id] = {
     tittle: newtittle,
   };
